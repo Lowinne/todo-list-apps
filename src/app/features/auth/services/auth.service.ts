@@ -12,6 +12,7 @@ export class AuthService {
       password: 'admin123', // En production, ce serait hashé
       role: 'admin',
       createdAt: new Date('2024-01-01'),
+      name: '',
     },
     {
       id: 2,
@@ -19,6 +20,7 @@ export class AuthService {
       password: 'user123',
       role: 'user',
       createdAt: new Date('2024-01-02'),
+      name: '',
     },
   ]);
 
@@ -74,6 +76,7 @@ export class AuthService {
       email: userData.email,
       password: userData.password,
       role: 'user',
+      name: userData.name,
       createdAt: new Date(),
     };
 
