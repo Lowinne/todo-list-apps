@@ -1,14 +1,26 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { AUTH_ROUTES } from './features/auth/auth.routes';
-import { TODOS_ROUTES } from './features/todos/todo.routes';
+import { authGuard } from './core/guards/auth.guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
-  { path: 'auth', children: AUTH_ROUTES }, // /auth/login
-  { path: 'todos', children: TODOS_ROUTES }, // /todos
-
-  // page d'accueil = todos
-  { path: '', redirectTo: 'todos', pathMatch: 'full' },
-
-  // fallback
-  { path: '**', redirectTo: 'todos' },
+  {
+    path: '',
+    redirectTo: '/todos',
+    pathMatch: 'full',
+  },
+  {
+    path: 'todos',
+    canActivate: [authGuard], // Protection par authentification
+    loadChildren: () => import('./features/todos/todo.routes').then(m => m.TODOS_ROUTES),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES),
+  },
+  {
+    path: 'admin',
+    canActivate: [authGuard, adminGuard], // Protection admin
+    loadChildren: () => import('./features/admin/admin.routes').then(m => m.ADMIN_ROUTES),
+  },
 ];

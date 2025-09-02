@@ -114,6 +114,22 @@ export class AuthService {
     return this.currentUser()?.role === 'admin';
   }
 
+  getToken(): string {
+    return 'token';
+  }
+
+  async deleteUser(userId: number): Promise<User> {
+    console.log('🔄Service:  Suppression du user');
+    await this.delay(300);
+
+    const user = this.users().find(element => (element.id = userId));
+    if (user) {
+      return user;
+    } else {
+      throw new Error('Utilisateur non trouvé');
+    }
+  }
+
   // GET - Récupérer tous les utilisateurs (admin seulement)
   async getAllUsers(): Promise<User[]> {
     console.log('🔄 Service: Récupération de tous les utilisateurs...');
