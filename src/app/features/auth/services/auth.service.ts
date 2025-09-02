@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { User, LoginRequest, RegisterRequest } from '../models/user.model';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,9 @@ export class AuthService {
   ]);
 
   private currentUser = signal<User | null>(null);
+
+  // Flux observable basé sur le signal
+  public currentUser$ = toObservable(this.currentUser);
 
   // Simuler un délai réseau
   private delay(ms: number): Promise<void> {

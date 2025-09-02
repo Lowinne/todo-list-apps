@@ -9,6 +9,12 @@ export const AUTH_ROUTES: Routes = [
   },
   {
     path: 'register',
-    redirectTo: '/todos', // provisoire
+    // TODO: Ajouter RegisterComponent dans la Partie 2
+    redirectTo: '/todos',
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
 ];
